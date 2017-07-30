@@ -33,7 +33,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/categories/findByName", method = RequestMethod.POST)
-    public Iterable<Category> findByName(@RequestBody Map<String,String> payload) {
+    public Category findByName(@RequestBody Map<String,String> payload) {
         return this.categoryService.findByName(payload.get("name"));
     }
 

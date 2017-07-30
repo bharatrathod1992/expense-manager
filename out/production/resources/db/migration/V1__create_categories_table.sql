@@ -3,5 +3,6 @@ CREATE TABLE `categories` (
   `version`     INT           NOT NULL    DEFAULT 0,
   `name`        VARCHAR(45)   NOT NULL,
   `created`     TIMESTAMP     NOT NULL    DEFAULT NOW(),
-  `modified`          TIMESTAMP     NOT NULL    DEFAULT NOW(),
-  PRIMARY KEY (`id`));
+  `modified`    TIMESTAMP     NOT NULL    DEFAULT NOW(),
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC));

@@ -30,4 +30,27 @@ public class SubCategoryService {
         SubCategory subCategory = new SubCategory(name,category);
         return this.subCategoryRepository.save(subCategory);
     }
+
+    public SubCategory findById(int id) {
+        return this.subCategoryRepository.findOne(id);
+    }
+
+    public Iterable<SubCategory> findByName(String name) {
+        return this.subCategoryRepository.findByName(name);
+    }
+
+    public SubCategory updateById(int id, SubCategory subCategory) {
+        SubCategory old = this.subCategoryRepository.findOne(id);
+        old.setName(subCategory.getName());
+        old.setCategory(subCategory.getCategory());
+        return this.subCategoryRepository.save(old);
+    }
+
+    public void delete(int id) {
+        this.subCategoryRepository.delete(id);
+    }
+
+    public Iterable<SubCategory> findAll() {
+        return this.subCategoryRepository.findAll();
+    }
 }

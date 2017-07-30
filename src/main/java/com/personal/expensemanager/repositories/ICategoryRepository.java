@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 
 public interface ICategoryRepository extends CrudRepository<Category, Integer> {
-    Iterable<Category> findByName(String food);
+    Category findByName(String food);
 
     @Modifying
     @Transactional

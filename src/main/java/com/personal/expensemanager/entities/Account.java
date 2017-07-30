@@ -1,6 +1,6 @@
 package com.personal.expensemanager.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.personal.expensemanager.enums.AccountType;
 import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,33 +8,34 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "accounts")
 @Data
-public class Category {
-    private int id;
+public class Account {
+    private int accno;
     private int version;
     private String name;
+    private AccountType accountType;
+    private double amount;
     private Date created;
     private Date modified;
 
-    private List<SubCategory> subCategories;
-
-    public Category() {
+    public Account() {
     }
-    public Category(String name) {
+    public Account(int accno, String name, AccountType accountType, double amount) {
+        this.accno = accno;
         this.name = name;
+        this.accountType = accountType;
+        this.amount = amount;
     }
 
     @Id
-    @GeneratedValue
-    public int getId() {
-        return id;
+    public int getAccno() {
+        return accno;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setAccno(int accno) {
+        this.accno = accno;
     }
 
     @Version
@@ -53,13 +54,22 @@ public class Category {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonIgnore
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
+
+    @Column(nullable = false, columnDefinition = "ENUM('BANK','CASH','WALLET')")
+    @Enumerated(EnumType.STRING)
+    public AccountType getAccountType() {
+        return accountType;
     }
-    public void setSubCategories(List<SubCategory> subCategories) {
-        this.subCategories = subCategories;
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     @CreationTimestamp

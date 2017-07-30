@@ -33,7 +33,7 @@ public class CategoryService {
         this.categoryRepository.delete(id);
     }
 
-    public Iterable<Category> findByName(String name) {
+    public Category findByName(String name) {
         return this.categoryRepository.findByName(name);
     }
 
@@ -41,4 +41,13 @@ public class CategoryService {
         this.categoryRepository.deleteByName(name);
     }
 
+    public Category updateCategory(int id,Category category) {
+        Category newCategory = this.categoryRepository.findOne(id);
+        newCategory.setName(category.getName());
+        return this.categoryRepository.save(newCategory);
+    }
+
+    public void createMultiple(List<Category> newCategories) {
+        this.categoryRepository.save(newCategories);
+    }
 }
