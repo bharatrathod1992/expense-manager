@@ -98,10 +98,10 @@ public class AccountServiceTest {
             assertEquals(5679, second.getAccno());
 
             List<Account> result = Lists.newArrayList(this.accountService.findAll());
-            assertEquals(3,result.size());
-            assertEquals("HDFC",result.get(1).getName());
-            assertEquals(5678,result.get(1).getAccno());
-            assertEquals(1000,result.get(2).getAmount(),0);
+            assertEquals(4,result.size());
+            assertEquals("HDFC",result.get(2).getName());
+            assertEquals(5678,result.get(2).getAccno());
+            assertEquals(1000,result.get(3).getAmount(),0);
             assertEquals(AccountType.BANK,result.get(0).getAccountType());
     }
 
@@ -153,15 +153,15 @@ public class AccountServiceTest {
     @Test
     public void shouldDeleteAccountByAccno() throws Exception {
         List<Account> accounts = Lists.newArrayList(this.accountService.findAll());
-        assertEquals(1,accounts.size());
+        assertEquals(2,accounts.size());
         this.accountService.deleteByAccNo(1267);
         List<Account> accounts1 = Lists.newArrayList(this.accountService.findAll());
-        assertEquals(0,accounts1.size());
+        assertEquals(1,accounts1.size());
     }
     @Test(expected = java.lang.Exception.class)
     public void shouldNotDeleteAccountByAccnoIfNotFound() throws Exception {
         List<Account> accounts = Lists.newArrayList(this.accountService.findAll());
-        assertEquals(1,accounts.size());
+        assertEquals(2,accounts.size());
         this.accountService.deleteByAccNo(1272);
         List<Account> accounts1 = Lists.newArrayList(this.accountService.findAll());
         assertEquals(0,accounts1.size());

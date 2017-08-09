@@ -15,6 +15,9 @@ public class AccountService {
     private IAccountRepository accountRepository;
 
     @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
     public void setAccountRepository(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
@@ -53,16 +56,18 @@ public class AccountService {
             prev.setAmount(account.getAmount());
             return this.accountRepository.save(prev);
         }else{
-            throw new Exception("No record found with this account number");
+            throw new Exception("Account number not found");
         }
     }
 
     public void deleteByAccNo(int accno) throws Exception {
         Optional<Account> oAccount = Optional.ofNullable(this.accountRepository.findOne(accno));
         if(oAccount.isPresent()){
+            Account account = this.accountRepository.findOne(accno);
+            this.transactionService.deleteRelatedTransactions(account);
             this.accountRepository.delete(accno);
         }else{
-            throw new Exception("No record found with this account number");
+            throw new Exception("Account number not found");
         }
     }
 }
