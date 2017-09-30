@@ -1,7 +1,6 @@
 package com.personal.expensemanager.services;
 
 import com.personal.expensemanager.entities.Account;
-import org.assertj.core.util.Lists;
 import com.personal.expensemanager.repositories.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

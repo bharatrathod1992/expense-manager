@@ -42,9 +42,6 @@ public class Account {
     public int getVersion() {
         return version;
     }
-    public void setVersion(int version) {
-        this.version = version;
-    }
 
     @NonNull
     public String getName() {
@@ -64,27 +61,13 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     @CreationTimestamp
     public Date getCreated() {
         return created;
-    }
-    public void setCreated(Date created) {
-        this.created = created;
     }
 
     @UpdateTimestamp
     public Date getModified() {
         return modified;
-    }
-    public void setModified(Date modified) {
-        this.modified = modified;
     }
 }

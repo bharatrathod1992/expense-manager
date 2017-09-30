@@ -19,8 +19,12 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @Sql(value = {"/sql/seed.sql"})
 public class AccountServiceTest {
-    @Autowired
     private AccountService accountService;
+
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -43,7 +47,7 @@ public class AccountServiceTest {
         Account first = this.accountService.create(account1);
         assertEquals(1234,first.getAccno());
         Account account2 = new Account(1234,"HDFC", AccountType.BANK,500.00);
-        Account second = this.accountService.create(account2);
+        this.accountService.create(account2);
     }
 
     //READ
@@ -65,7 +69,7 @@ public class AccountServiceTest {
         Account account1 = this.accountService.create(account);
         assertEquals(5678,account1.getAccno());
 
-        Account result = this.accountService.findByAccNo(1232);
+        this.accountService.findByAccNo(1232);
     }
     @Test
     public void shouldFindAccountByName() throws Exception {
@@ -146,7 +150,7 @@ public class AccountServiceTest {
         toBeUpdate.setAmount(3000);
         toBeUpdate.setAccountType(AccountType.WALLET);
         toBeUpdate.setName("PayTM");
-        Account updated = this.accountService.updateByAccNo(5412,toBeUpdate);
+        this.accountService.updateByAccNo(5412,toBeUpdate);
     }
 
     //DELETE

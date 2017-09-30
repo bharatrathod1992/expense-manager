@@ -28,7 +28,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
-    public Category findOne(@PathVariable int id) {
+    public Category findById(@PathVariable int id) {
         return this.categoryService.findById(id);
     }
 

@@ -18,8 +18,9 @@
 
 ### NetBeans ###
 nbproject/private/
-build/
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+out/production/classes/generated/
+out/test/classes/generated_tests/
