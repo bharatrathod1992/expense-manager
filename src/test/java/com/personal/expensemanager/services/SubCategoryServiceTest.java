@@ -28,7 +28,7 @@ public class SubCategoryServiceTest {
 
     //CREATE
     @Test
-    public void shouldCreateNewSubCategory() {
+    public void shouldCreateNewSubCategory() throws Exception {
         Category category = this.categoryService.create("Fee");
         assertEquals("Fee",this.categoryService.findById(category.getId()).getName());
         SubCategory subCategory = this.subCategoryService.create("Pizza",1);

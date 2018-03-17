@@ -1,6 +1,5 @@
 package com.personal.expensemanager.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.personal.expensemanager.enums.TransactionType;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -72,7 +71,6 @@ public class Transaction {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "from_accounts_accno")
     public Account getDebitFrom() {
         return debitFrom;
@@ -82,7 +80,6 @@ public class Transaction {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "to_accounts_accno")
     public Account getCreditTo() {
         return creditTo;
@@ -92,7 +89,6 @@ public class Transaction {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "categories_id")
     public Category getCategory() {
         return category;
@@ -102,7 +98,6 @@ public class Transaction {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "subcategories_id")
     public SubCategory getSubCategory() {
         return subCategory;

@@ -25,8 +25,8 @@ public class SubCategoryService {
 
 
 
-    public SubCategory create(String name, int category_id) {
-        Category category = this.categoryRepository.findOne(category_id);
+    public SubCategory create(String name, int categoryId) {
+        Category category = this.categoryRepository.findOne(categoryId);
         SubCategory subCategory = new SubCategory(name,category);
         return this.subCategoryRepository.save(subCategory);
     }

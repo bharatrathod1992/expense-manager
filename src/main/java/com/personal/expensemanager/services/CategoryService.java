@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -16,7 +17,11 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category create(String name){
+    public Category create(String name) {
+        Optional<Category> optional = Optional.ofNullable(this.categoryRepository.findByName(name));
+        if(optional.isPresent()){
+            throw new IllegalArgumentException(name +" is already added.");
+        }
         Category category = new Category(name);
         return this.categoryRepository.save(category);
     }
@@ -30,7 +35,12 @@ public class CategoryService {
     }
 
     public void delete(int id) {
-        this.categoryRepository.delete(id);
+        Optional<Category> optional = Optional.ofNullable(this.categoryRepository.findOne(id));
+        if(optional.isPresent()){
+            this.categoryRepository.delete(id);
+        }else {
+            throw new IllegalArgumentException("Category not found with id: " + id);
+        }
     }
 
     public Category findByName(String name) {
@@ -41,13 +51,25 @@ public class CategoryService {
         this.categoryRepository.deleteByName(name);
     }
 
-    public Category updateCategory(int id,Category category) {
-        Category newCategory = this.categoryRepository.findOne(id);
+    public Category updateCategory(Category category) {
+        Category newCategory = this.categoryRepository.findOne(category.getId());
         newCategory.setName(category.getName());
         return this.categoryRepository.save(newCategory);
     }
 
-    public void createMultiple(List<Category> newCategories) {
-        this.categoryRepository.save(newCategories);
+    public Iterable<Category> createMultiple(List<Category> newCategories) {
+        boolean flag = false;
+        for(Category category : newCategories){
+            Optional<Category> optional = Optional.ofNullable(this.categoryRepository.findByName(category.getName()));
+            if(optional.isPresent()){
+                flag = true;
+                break;
+            }
+        }
+        if(flag){
+            throw new IllegalArgumentException("Duplicate Entry");
+        }
+
+        return  this.categoryRepository.save(newCategories);
     }
 }

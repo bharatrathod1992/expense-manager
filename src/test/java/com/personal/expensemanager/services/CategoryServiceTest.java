@@ -1,6 +1,5 @@
 package com.personal.expensemanager.services;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.personal.expensemanager.entities.Category;
 import com.personal.expensemanager.entities.SubCategory;
 import org.assertj.core.util.Lists;
@@ -45,7 +44,7 @@ public class CategoryServiceTest {
         assertEquals(3,category.getId());
     }
     @Test
-    public void shouldCreateMultipleCategories() {
+    public void shouldCreateMultipleCategories() throws Exception {
         Category firt = new Category("Education");
         Category second = new Category("Bill");
         Category third = new Category("Shopping");
@@ -63,13 +62,13 @@ public class CategoryServiceTest {
 
     //READ
     @Test
-    public void shouldFindCategoryById() {
+    public void shouldFindCategoryById() throws Exception {
         Category category = this.categoryService.create("Transport");
         Category result = this.categoryService.findById(category.getId());
         assertEquals("Transport",result.getName());
     }
     @Test
-    public void shouldFindCategoriesByName() {
+    public void shouldFindCategoriesByName() throws Exception {
         this.categoryService.create("Transport");
         this.categoryService.create("Fee");
         Category result = this.categoryService.findByName("Transport");
@@ -77,10 +76,10 @@ public class CategoryServiceTest {
         assertEquals("Fee",this.categoryService.findByName("Fee").getName());
     }
     @Test
-    public void shouldFindAllCategories() {
-        Category category = this.categoryService.create("Transport");
-        Category category1 = this.categoryService.create("Fee");
-        Category category2 = this.categoryService.create("Sport");
+    public void shouldFindAllCategories() throws Exception {
+        this.categoryService.create("Transport");
+        this.categoryService.create("Fee");
+        this.categoryService.create("Sport");
         Iterable<Category> results = this.categoryService.findAll();
         List<Category> categories = Lists.newArrayList(results);
         assertEquals(5,categories.size());
@@ -99,13 +98,14 @@ public class CategoryServiceTest {
     @Test
     public void shouldUpdateCategoryById() {
         Category category = new Category("DailyFood");
-        Category updatedCategory = this.categoryService.updateCategory(1, category);
+        category.setId(1);
+        Category updatedCategory = this.categoryService.updateCategory(category);
         assertEquals("DailyFood",updatedCategory.getName());
     }
 
     //DELETE
     @Test
-    public void shouldDeleteCategoryById() {
+    public void shouldDeleteCategoryById() throws Exception {
         Category category = this.categoryService.create("Fee");
         Iterable<Category> results = this.categoryService.findAll();
         List<Category> categories = Lists.newArrayList(results);
@@ -118,8 +118,8 @@ public class CategoryServiceTest {
     }
     @Test
     @Transactional
-    public void shouldDeleteCategoryByName() {
-        Category category = this.categoryService.create("Fee");
+    public void shouldDeleteCategoryByName() throws Exception {
+        this.categoryService.create("Fee");
         assertEquals(1,this.categoryService.findById(1).getId());
 
         this.categoryService.deleteByName("Fee");
