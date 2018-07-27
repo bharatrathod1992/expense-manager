@@ -1,6 +1,7 @@
 package com.personal.expensemanager.entities;
 
 import com.personal.expensemanager.enums.TransactionType;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -15,6 +16,7 @@ import java.util.Date;
 public class Transaction {
     private int id;
     private int version;
+    @ApiModelProperty(value = "The type of the transaction", allowableValues = "INCOME, EXPENSE, TRANSFER")
     private TransactionType transactionType;
     private double amount;
     private Account debitFrom;
