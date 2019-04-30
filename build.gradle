@@ -14,3 +14,5 @@ task buildFrontend {
     dependsOn 'frontend:npm_run_build'
     dependsOn 'frontend:webjar'
 }
+
+task stage (dependsOn: ['installDist'])
