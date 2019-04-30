@@ -15,4 +15,14 @@ task buildFrontend {
     dependsOn 'frontend:webjar'
 }
 
-task stage (dependsOn: ['installDist'])
+task buildBackend {
+    'backend:clean'
+    'backend:build'
+    'bootrun'
+}
+
+task stage {
+    dependsOn 'buildFrontend'
+    dependsOn 'backend:clean'
+    dependsOn 'backend:build'
+}
