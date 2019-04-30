@@ -24,3 +24,10 @@ nbdist/
 .nb-gradle/
 out/production/classes/generated/
 out/test/classes/generated_tests/
+
+/backend/build/
+/backend/dist
+
+/frontend/node_modules/
+/frontend/build/
+/frontend/dist/

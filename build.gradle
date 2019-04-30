@@ -1,34 +1,16 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.4.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+allprojects {
+    group = 'com.personal'
+    version = '0.0.1'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+defaultTasks 'buildFrontend',
+        'backend:clean',
+        'backend:build',
+        'bootrun'
 
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
-
-repositories {
-	mavenCentral()
-}
-
-
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.flywaydb:flyway-core')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('mysql:mysql-connector-java')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile('io.springfox:springfox-swagger2:2.6.1')
-	compile('io.springfox:springfox-swagger-ui:2.6.1')
+task buildFrontend {
+    dependsOn 'frontend:clean'
+//    dependsOn 'frontend:npm_run_test'
+    dependsOn 'frontend:npm_run_build'
+    dependsOn 'frontend:webjar'
 }
